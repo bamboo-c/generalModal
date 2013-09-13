@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>jquery.generals</title>
+<link rel="stylesheet" href="css/app.css">
+<style>
+.panel {
+	/*必要*/
+	position: absolute;
+	z-index: 11;
+
+	/*無くても*/
+	width: 500px;
+
+	/*フレームワークのリセット*/
+	margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+
+<div class="row">
+<section class="large-12 columns">
+<h1 class="docs header">jquery.generals</h1>
+<hr>
+
+<section>
+<h2 class="subheader">jquery.generalModal.js</h2>
+
+<ul class="inline-list">
+<li><a href="#modal1" class="js-generalModalbutton radius">modal1 open</a></li>
+<li><a href="#modal2" class="js-generalModalbutton radius">modal2 open</a></li>
+</ul>
+</section>
+
+<p><small>&copy; komei otake.</small></p>
+<!-- /.large-12 --></section>
+<!-- /.row --></div>
+<!-- /.main --></div>
+
+<div id="modal1" class="loadPanel panel">
+<p><span class="label">Modal1</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi pariatur aspernatur maxime fugiat doloribus quisquam adipisci dolore modi praesentium magni veniam rem minus molestias vitae assumenda neque atque fuga consequuntur!</p>
+<a class="generalModalClose">modal close</a>
+<!-- /.generalModalPanel --></div>
+
+<div id="modal2" class="panel">
+<p><span class="label success">Modal2</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi pariatur aspernatur maxime fugiat doloribus quisquam adipisci dolore modi praesentium magni veniam rem minus molestias vitae assumenda neque atque fuga consequuntur!</p>
+<a class="generalModalClose">modal close</a>
+<!-- /.generalModalPanel --></div>
+
+
+<script src="js/vendor/jquery.js"></script>
+<script src="js/jquery.generalModal.js"></script>
+<script>
+(function($){
+	$(".js-generalModalbutton").generalModal();
+})(jQuery);
+</script>
+</body>
+</html>
