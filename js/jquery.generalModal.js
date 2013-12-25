@@ -14,7 +14,7 @@
 			closeClass:".generalModalClose",
 			onload:false,
 			loadPanelClass:".loadPanel",
-			backLayerId:"#backLayer"
+			backLayerId:"backLayer"
 		}, config);
 
 		// レイヤーを敷く場合
@@ -38,7 +38,7 @@
 			var $self = $(this);
 			var $panel = $($self.attr("href"));
 			// ここでjQueryオブジェクトにできない
-			var $backLayer = $(options.backLayerId);
+			var $backLayer = $("#"+options.backLayerId);
 
 			// モーダルを消す（JS無効環境を考慮し、JSで消す）
 			$panel.hide();
@@ -135,7 +135,7 @@
 				// 位置調整関数を発火（setTimeoutで頻繁に発生しないように）
 				timer = setTimeout(function() {
 					modalPos();
-				}, 300);
+				}, 60);
 			});
 		});
 	return this;
