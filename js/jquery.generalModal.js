@@ -13,13 +13,14 @@
 			backLayerOpacity:0.5,
 			closeClass:".generalModalClose",
 			onload:false,
-			loadPanelClass:".loadPanel"
+			loadPanelClass:".loadPanel",
+			backLayerId:"#backLayer"
 		}, config);
 
 		// レイヤーを敷く場合
 		if(options.backLayer === true) {
 			// レイヤーを挿入してスタイリング
-			$("body").append($("<div id='backLayer'></div>").css({
+			$("body").append($("<div id="+options.backLayerId+"></div>").css({
 				display: "none",
 				position: "absolute",
 				top: 0,
@@ -36,7 +37,8 @@
 			// 変数定義
 			var $self = $(this);
 			var $panel = $($self.attr("href"));
-			var $backLayer = $("#backLayer");
+			// ここでjQueryオブジェクトにできない
+			var $backLayer = $(options.backLayerId);
 
 			// モーダルを消す（JS無効環境を考慮し、JSで消す）
 			$panel.hide();
@@ -44,24 +46,26 @@
 			// モーダルの位置を調整する関数
 			function modalPos () {
 				// ウィンドウの幅を取得して変数に入れる
-				var $windowWidth = $(window).outerWidth();
+				var windowWidth = $(window).outerWidth();
 				// パネルの幅を取得して変数に入れる
-				var $panelWidth = $panel.outerWidth();
+				var panelWidth = $panel.outerWidth();
 
 				// ウィンドウの幅を半分にし、パネルの半分のサイズを引いた値を変数に入れる
-				$windowWidth = ($windowWidth / 2) - ($panelWidth / 2);
+				windowWidth = (windowWidth / 2) - (panelWidth / 2);
 				// 上記の数字をleftに入れ、左右中央に配置
-				$panel.css('left',$windowWidth);
+				$panel.css('left',windowWidth);
 
 				// ウィンドウの高さを取得して変数に入れる
-				var $windowHeight = $(window).outerHeight();
+				var windowHeight = $(window).outerHeight();
 				// パネルの高さを取得して変数に入れる
-				var $panelHeight = $panel.outerHeight();
+				var panelHeight = $panel.outerHeight();
+				// ウィンドウのスクロール量を取得して変数に入れる
+				var windowScroll = $(window).scrollTop();
 
 				// ウィンドウの高さを半分にし、パネルの半分のサイズを引いた値を変数に入れる
-				$windowHeight = ($windowHeight / 2) - ($panelHeight / 2);
+				windowHeight = (windowHeight / 2) - (panelHeight / 2) + windowScroll;
 				// 上記の数字をtopに入れ、上下中央に配置
-				$panel.css('top',$windowHeight);
+				$panel.css('top',windowHeight);
 			}
 
 			// モーダルを呼び出す時の処理をまとめた関数
@@ -122,10 +126,16 @@
 				return false;
 			});
 
-			// リサイズ時
-			$(window).on("resize", function() {
-				// 位置調整関数を発火
-				modalPos();
+			// リサイズ、スクロール時
+			// タイマー変数を指定
+			var timer;
+			$(window).on("resize scroll", function() {
+				// タイマーリセット
+				clearTimeout(timer);
+				// 位置調整関数を発火（setTimeoutで頻繁に発生しないように）
+				timer = setTimeout(function() {
+					modalPos();
+				}, 300);
 			});
 		});
 	return this;
