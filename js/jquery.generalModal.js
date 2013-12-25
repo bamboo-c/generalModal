@@ -135,7 +135,7 @@
 				// 位置調整関数を発火（setTimeoutで頻繁に発生しないように）
 				timer = setTimeout(function() {
 					modalPos();
-				}, 60);
+				}, 1000/60);
 			});
 		});
 	return this;
